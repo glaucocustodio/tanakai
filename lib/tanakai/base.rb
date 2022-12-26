@@ -159,7 +159,7 @@ module Tanakai
       if args.present?
         spider.public_send(handler, *args)
       elsif request.present?
-        spider.request_to(handler, request)
+        spider.request_to(handler, **request)
       else
         spider.public_send(handler)
       end
@@ -201,7 +201,7 @@ module Tanakai
       visited = delay ? browser.visit(url, delay: delay) : browser.visit(url)
       return unless visited
 
-      public_send(handler, browser.current_response(response_type), { url: url, data: data })
+      public_send(handler, browser.current_response(response_type), url: url, data: data)
     end
 
     def console(response = nil, url: nil, data: {})
